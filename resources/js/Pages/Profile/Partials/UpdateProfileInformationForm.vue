@@ -41,6 +41,12 @@
                 <jet-input-error :message="form.errors.photo" class="mt-2" />
             </div>
 
+            <!-- Username -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="username" :value="'Username: '+user.username" />
+               
+            </div>
+
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="name" value="Name" />
@@ -48,11 +54,23 @@
                 <jet-input-error :message="form.errors.name" class="mt-2" />
             </div>
 
+            
+
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="email" value="Email" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" />
                 <jet-input-error :message="form.errors.email" class="mt-2" />
+            </div>
+
+            <!-- Country -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="country" value="Country" />
+                <select id="country" v-model="form.country" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value=""> Select Country </option>
+                    <option v-for="nationality,index in nationalities" :value="nationality.id" :key="index"> {{nationality.country}} </option>
+                </select>
+                <jet-input-error :message="form.errors.country" class="mt-2" />
             </div>
         </template>
 
@@ -89,7 +107,7 @@
             JetSecondaryButton,
         },
 
-        props: ['user'],
+        props: ['user', 'nationalities'],
 
         data() {
             return {
@@ -97,6 +115,7 @@
                     _method: 'PUT',
                     name: this.user.name,
                     email: this.user.email,
+                    country: this.user.nationality_id,
                     photo: null,
                 }),
 

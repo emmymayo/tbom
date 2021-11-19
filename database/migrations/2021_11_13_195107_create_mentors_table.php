@@ -16,7 +16,7 @@ class CreateMentorsTable extends Migration
         Schema::create('mentors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('title');
+            $table->string('title')->nullable();
             //Highest Qualification
             $table->foreignId('qualification_id')->constrained();
             $table->tinyInteger('annual_mentees')->default(1);

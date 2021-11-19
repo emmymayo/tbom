@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+    //use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'nationality_id',
+        'role_id',
     ];
 
     /**
@@ -58,4 +61,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    protected $with = ['role',
+                        $this->isMentee()?'mentee':'',
+                        $this->isMentor()?'mentor':'',
+                      ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    public function mentee(){
+        return $this->hasOne(Mentee::class);
+    }
+    public function mentor(){
+        return $this->hasOne(Mentor::class);
+    }
+
+    public function isMentee(){
+        return $this->role->name == 'mentee'? true : false ;
+    }
+
+    public function isMentor(){
+        return $this->role->name == 'mentor'? true : false ;
+    }
 }

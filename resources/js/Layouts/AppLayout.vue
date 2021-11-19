@@ -22,6 +22,9 @@
                                 <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </jet-nav-link>
+                                <jet-nav-link v-if="$page.props.user.role.name=='mentee'" :href="route('mentee.experience')" :active="route().current('mentee.experience')">
+                                    Educational History
+                                </jet-nav-link>
                             </div>
                         </div>
 
@@ -255,6 +258,10 @@
             JetNavLink,
             JetResponsiveNavLink,
             Link,
+        },
+
+        setup(){
+            
         },
 
         data() {

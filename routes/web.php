@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MenteeExperienceController;
+use App\Models\Nationality;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,5 +27,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard',[
+        
+    ]);
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified','can:mentee-only'])->get('/mentees/experiences', [MenteeExperienceController::class,'index'])->name('mentee.experience');
+Route::middleware(['auth:sanctum', 'verified','can:mentee-only'])->get('/mentees/experiences/create', [MenteeExperienceController::class,'create'])->name('create.mentee.experience');
+Route::middleware(['auth:sanctum', 'verified','can:mentee-only'])->post('/mentees/experiences', [MenteeExperienceController::class,'store'])->name('store.mentee.experience');
+

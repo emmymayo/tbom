@@ -1,5 +1,5 @@
 <template>
-    <Head title="Register" />
+    <Head title="Mentee Registration" />
 
     <jet-authentication-card>
         <template #logo>
@@ -9,14 +9,22 @@
         <jet-validation-errors class="mb-4" />
 
         <form @submit.prevent="submit">
+
+          
             <div>
                 <jet-label for="name" value="Name" />
                 <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
             </div>
 
+
             <div class="mt-4">
                 <jet-label for="email" value="Email" />
                 <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="username" value="Username" />
+                <jet-input id="username" type="text" class="mt-1 block w-full" v-model="form.username" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
@@ -27,6 +35,19 @@
             <div class="mt-4">
                 <jet-label for="password_confirmation" value="Confirm Password" />
                 <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="country" value="Country" />
+                <select id="country" v-model="form.country" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value=""> Select Country </option>
+                    <option v-for="nationality,index in nationalities" :value="nationality.id" :key="index"> {{nationality.country}} </option>
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="dob" value="Date of Birth" />
+                <jet-input id="dob" type="date" class="mt-1 block w-full" v-model="form.dob"   />
             </div>
 
             <div class="mt-4" v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature">
@@ -83,13 +104,17 @@
                 form: this.$inertia.form({
                     name: '',
                     email: '',
+                    username: '',
+                    country:'',
                     password: '',
                     password_confirmation: '',
+                    role: 'mentee',
+                    dob: '',
                     terms: false,
                 })
             }
         },
-
+        props: ['nationalities'],
         methods: {
             submit() {
                 this.form.post(this.route('register'), {
