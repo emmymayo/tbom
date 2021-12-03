@@ -20,8 +20,9 @@ class Mentee extends Model
     }
 
     public function mentors(){
-        return $this->belongsToMany(Mentor::class,'mentor_mentees')
-                    ->withPivot('status')
-                    ->withTimestamps();
+        return $this->belongsToMany(Mentor::class)->using(MentorMentee::class);
+        // return $this->belongsToMany(Mentor::class,'mentor_mentees')
+        //             ->withPivot('status')
+        //             ->withTimestamps();
     }
 }

@@ -25,6 +25,12 @@
                                 <jet-nav-link v-if="$page.props.user.role.name=='mentee'" :href="route('mentee.experience')" :active="route().current('mentee.experience')">
                                     Educational History
                                 </jet-nav-link>
+                                <jet-nav-link v-if="$page.props.user.role.name=='mentee'" :href="route('my-mentor.index')" :active="route().current('my-mentor.index')">
+                                    Mentors
+                                </jet-nav-link>
+                                <jet-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('mentor.expertise')" :active="route().current('mentor.expertise')">
+                                    Expertise
+                                </jet-nav-link>
                             </div>
                         </div>
 
@@ -147,6 +153,15 @@
                     <div class="pt-2 pb-3 space-y-1">
                         <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link v-if="$page.props.user.role.name=='mentee'" :href="route('mentee.experience')" :active="route().current('mentee.experience')">
+                            Educational History
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link v-if="$page.props.user.role.name=='mentee'" :href="route('my-mentor.index')" :active="route().current('my-mentor.index')">
+                            Mentors
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('mentor.expertise')" :active="route().current('mentor.expertise')">
+                            Expertise
                         </jet-responsive-nav-link>
                     </div>
 

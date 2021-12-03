@@ -12,6 +12,8 @@ class Mentor extends Model
  
     protected $guarded = ['id'];
 
+    protected $with = ['user','expertises:id,name', 'qualification:id,name'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -27,8 +29,9 @@ class Mentor extends Model
     }
 
     public function mentees(){
-        return $this->belongsToMany(Mentee::class,'mentor_mentees')
-                    ->withPivot('status')
-                    ->withTimestamps();
+        return $this->belongsToMany(Mentee::class)->using(MentorMentee::class);
+        // return $this->belongsToMany(Mentee::class,'mentor_mentees')
+        //             ->withPivot('status')
+        //             ->withTimestamps();
     }
 }

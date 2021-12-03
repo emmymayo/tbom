@@ -1,17 +1,17 @@
 <template>
     
 
-    <app-layout title="Add Experience">
+    <app-layout title="Edit Experience">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Add Educational Experience
+                Update Educational Experience
             </h2>
         </template>
 
         <jet-validation-errors class="mb-4" />
         <div class="grid grid-cols-1 md:grid-cols-2">
             <div class="px-4 py-4">
-               <h3 class="text-lg font-medium leading-6 text-gray-900">Add Experience</h3>
+               <h3 class="text-lg font-medium leading-6 text-gray-900">Update Experience</h3>
                 <p class="mt-1 text-sm text-gray-600">
                     This information helps us understand your academic progression.
                 </p>
@@ -59,7 +59,7 @@
                     <div class="flex items-center justify-end mt-4">
 
                         <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                            Submit
+                            Update
                         </jet-button>
                     </div>
                 </form>
@@ -87,17 +87,16 @@
             JetValidationErrors,
             
         },
-        props:['mentee'],
+        props:['experience'],
         data() {
             return {
                 form: this.$inertia.form({
-                    school: '',
-                    from: '',
-                    to: '',
-                    degree:'',
-                    area_of_study: '',
-                    description: '',
-                    mentee_id:this.mentee.id
+                    school: this.experience.school,
+                    from: this.experience.from,
+                    to: this.experience.to,
+                    degree: this.experience.degree,
+                    area_of_study: this.experience.area_of_study,
+                    description: this.experience.description
                     
                 })
             }
@@ -105,7 +104,7 @@
         
         methods: {
             submit() {
-                this.form.post(this.route('store.mentee.experience'))
+                this.form.put(this.route('update.mentee.experience',{experience:this.experience.id}))
             }
         }
     })

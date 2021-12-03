@@ -62,13 +62,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    protected $with = ['role',
-                        $this->isMentee()?'mentee':'',
-                        $this->isMentor()?'mentor':'',
-                      ];
+    protected $with = ['role','nationality:id,country'];
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function nationality(){
+        return $this->belongsTo(Nationality::class);
     }
 
     public function mentee(){

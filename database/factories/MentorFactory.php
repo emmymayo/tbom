@@ -21,7 +21,8 @@ class MentorFactory extends Factory
             'user_id' => User::factory(),
             'title' => $this->faker->title(),
             'qualification_id' => Qualification::factory(),
-            'nationality_id' => Nationality::factory()
+            'about_me' => $this->faker->sentence(),
+            
         ];
     }
 }

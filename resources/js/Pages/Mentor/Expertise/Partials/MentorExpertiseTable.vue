@@ -7,20 +7,15 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  School
+                  Expertise
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  From (Year)
+                  Years of Experience
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  To (Year)
+                  Duration of Mentorship
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Degree
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Area of Study
-                </th>
+                
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -30,28 +25,23 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr v-for="experience in experiences" :key="experience.id">
+              <tr v-for="mentor_expertise in mentor_expertises" :key="mentor_expertise.id">
                 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ experience.school }}
+                  {{ mentor_expertise.expertise.name }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ experience.from }}
+                  {{ mentor_expertise.years_of_experience }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ experience.to }}
+                  {{ mentor_expertise.duration_of_mentorship }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ experience.degree }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ experience.area_of_study }}
+                
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" @click="$emit('edit',mentor_expertise.id)"  class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" @click="$emit('edit',experience.id)"  class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" @click="$emit('trash',experience.id)" class=" text-red-400 hover:text-red-600">Trash</a>
+                  <a href="#" @click="$emit('trash',mentor_expertise.id)" class=" text-red-400 hover:text-red-600">Trash</a>
                 </td>
               </tr>
             </tbody>
@@ -66,7 +56,7 @@
 
 
 export default {
-  props:['experiences'],
+  props:['mentor_expertises'],
   emits:['trash','edit'],
 }
 </script>

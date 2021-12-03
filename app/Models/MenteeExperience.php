@@ -9,6 +9,8 @@ class MenteeExperience extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    
     public function mentee(){
         return $this->belongsTo(Mentee::class);
     }
