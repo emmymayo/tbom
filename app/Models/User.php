@@ -18,6 +18,7 @@ class User extends Authenticatable
     use Notifiable;
     //use TwoFactorAuthenticatable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -62,7 +63,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    protected $with = ['role','nationality:id,country'];
+    const STATUS_ACTIVE = 1;
+    const STATUS_PENDING = 2;
+    const STATUS_DISABLED = 3;
+
+    protected $with = ['role','nationality:id,country','documents'];
 
     public function role(){
         return $this->belongsTo(Role::class);
@@ -79,11 +84,21 @@ class User extends Authenticatable
         return $this->hasOne(Mentor::class);
     }
 
+    public function documents(){
+        return $this->hasMany(UserDocument::class);
+    }
+
     public function isMentee(){
         return $this->role->name == 'mentee'? true : false ;
     }
 
     public function isMentor(){
         return $this->role->name == 'mentor'? true : false ;
+    }
+
+    public function disable(){
+        $this->status = static::STATUS_DISABLED;
+        $this->save();
+        return $this;
     }
 }

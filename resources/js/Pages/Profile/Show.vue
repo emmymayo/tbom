@@ -14,11 +14,30 @@
                     <jet-section-border />
                 </div>
 
+                <div v-if="$page.props.mentor!=null">
+                    <upload-documents class="mt-10 sm:mt-0" />
+
+                    <jet-section-border />
+                </div>
+                <div v-if="$page.props.mentee!=null">
+                    <update-additional-mentee-information-form :dob="$page.props.mentee.dob" class="mt-10 sm:mt-0" />
+
+                    <jet-section-border />
+                </div>
+    
+                <div v-if="$page.props.mentor!=null">
+                    <update-additional-mentor-information-form :mentor="$page.props.mentor" :qualifications="$page.props.qualifications" class="mt-10 sm:mt-0" />
+
+                    <jet-section-border />
+                </div>
+
                 <div v-if="$page.props.jetstream.canUpdatePassword">
                     <update-password-form class="mt-10 sm:mt-0" />
 
                     <jet-section-border />
                 </div>
+
+               
 
                 <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                     <two-factor-authentication-form class="mt-10 sm:mt-0" />
@@ -47,6 +66,9 @@
     import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue'
     import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
+    import UpdateAdditionalMenteeInformationForm from '@/Pages/Profile/Partials/UpdateAdditionalMenteeInformationForm.vue'
+    import UpdateAdditionalMentorInformationForm from '@/Pages/Profile/Partials/UpdateAdditionalMentorInformationForm.vue'
+    import UploadDocuments from '@/Pages/Profile/Partials/UploadDocuments.vue'
 
     export default defineComponent({
         props: ['sessions'],
@@ -59,6 +81,9 @@
             TwoFactorAuthenticationForm,
             UpdatePasswordForm,
             UpdateProfileInformationForm,
+            UpdateAdditionalMenteeInformationForm,
+            UpdateAdditionalMentorInformationForm,
+            UploadDocuments
         },
     })
 </script>

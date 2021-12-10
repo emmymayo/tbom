@@ -68,6 +68,7 @@ class FortifyServiceProvider extends ServiceProvider
             
             $user = User::where('username',$request->username)
                             ->orWhere('email',$request->username)
+                            ->where('status', User::STATUS_ACTIVE)
                             ->first();
        
             if($user){

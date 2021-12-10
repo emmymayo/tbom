@@ -12,7 +12,7 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     
                     <Link :href="route('create.mentor.expertise')">
-                        <jet-button class="my-4 mx-2 bg-blue-400 hover:bg-blue-600"> Add + </jet-button>
+                        <jet-button class="my-4 mx-2 bg-blue-400 hover:bg-blue-600">+ Add  </jet-button>
                     </Link>
                    <mentor-expertise-table v-if="mentor_expertises.length>0" @trash="trash($event)" @edit="edit($event)" :mentor_expertises="mentor_expertises"> </mentor-expertise-table>
                    <template v-else> 

@@ -2,6 +2,8 @@
 
 namespace App\Services\Mentors ;
 
+use App\Models\Mentee;
+use App\Models\MentorAssessment;
 use App\Models\MentorMentee;
 
 class Mentor {
@@ -28,5 +30,10 @@ class Mentor {
         return $paginate == true? $mentors_query->paginate() : $mentors_query->get();
     }
 
-   
+   public static function getUserMentorAssessment($mentor_id){
+        $auth_mentee = Mentee::firstWhere('user_id', auth()->id());
+       return MentorAssessment::where('mentee_id', $auth_mentee->id)
+                            ->where('mentor_id', $mentor_id)
+                            ->first(); 
+   }
 }

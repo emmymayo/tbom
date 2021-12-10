@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 
 class Mentor extends Model
 {
@@ -34,4 +34,28 @@ class Mentor extends Model
         //             ->withPivot('status')
         //             ->withTimestamps();
     }
+
+    public function assessments(){
+        return $this->hasMany(MentorAssessment::class);
+    }
+    /* 
+        assessing six attributes in percentage
+        expertise, availability, motivation, listening, adaptability, positivity
+        To find index
+        Step 1 - Sum the attributes for each assessment
+        Step 2 - find the avearge
+        Step 3 - divide by no of attributes
+    */
+    public function assessmentIndex(){
+        $no_of_attributes = 6;
+        $average_of_sum = MentorAssessment::where('mentor_id',$this->id)
+                            ->select()
+                            ->avg(DB::raw('expertise+availability+motivation+listening+adaptability+positivity'));
+        $index = $average_of_sum/$no_of_attributes;      
+        $index = round($index,1);
+        return $index;
+        
+    }
+
+    
 }

@@ -11,11 +11,13 @@ class Mentee extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['user','experiences'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function menteeExperiences(){
+    public function experiences(){
         return $this->hasMany(MenteeExperience::class);
     }
 
@@ -24,5 +26,9 @@ class Mentee extends Model
         // return $this->belongsToMany(Mentor::class,'mentor_mentees')
         //             ->withPivot('status')
         //             ->withTimestamps();
+    }
+
+    public function assessments(){
+        return $this->hasMany(MentorAssessment::class);
     }
 }

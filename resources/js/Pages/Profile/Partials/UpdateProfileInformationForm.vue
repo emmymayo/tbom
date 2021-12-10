@@ -67,10 +67,23 @@
             <div class="col-span-6 sm:col-span-4">
                 <jet-label for="country" value="Country" />
                 <select id="country" v-model="form.country" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
-                    <option value=""> Select Country </option>
+                    <option value="">  </option>
                     <option v-for="nationality,index in nationalities" :value="nationality.id" :key="index"> {{nationality.country}} </option>
                 </select>
                 <jet-input-error :message="form.errors.country" class="mt-2" />
+            </div>
+
+            <!-- Gender -->
+            <div class="col-span-6 sm:col-span-4">
+                <jet-label for="gender" value="Gender" />
+                <select id="gender" v-model="form.gender" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="">  </option>
+                    <option value="male"> Male </option>
+                    <option value="female"> Female </option>
+                    <option value="nil"> Nil </option>
+                    
+                </select>
+                <jet-input-error :message="form.errors.gender" class="mt-2" />
             </div>
         </template>
 
@@ -116,6 +129,7 @@
                     name: this.user.name,
                     email: this.user.email,
                     country: this.user.nationality_id,
+                    gender: this.user.gender,
                     photo: null,
                 }),
 

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Jetstream;
 
+use App\Models\User;
 use Laravel\Jetstream\Contracts\DeletesUsers;
 
 class DeleteUser implements DeletesUsers
@@ -14,9 +15,13 @@ class DeleteUser implements DeletesUsers
      */
     public function delete($user)
     {
-        $user->deleteProfilePhoto();
-        $user->tokens->each->delete();
-        $user->isMentor() ? $user->mentor()->delete() : $user->mentee()->delete();
-        $user->delete();
+        /* Disable User Status*/
+
+        $user->status = User::STATUS_DISABLED;
+        $user->save();
+        // $user->deleteProfilePhoto();
+        // $user->tokens->each->delete();
+        // $user->isMentor() ? $user->mentor()->delete() : $user->mentee()->delete();
+        // $user->delete();
     }
 }

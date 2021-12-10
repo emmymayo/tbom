@@ -1,7 +1,8 @@
 <template >
-    <Head title="Find Mentors"> </Head>
+    <Head title="Find Mentors "> </Head>
+    <nav-bar />
     <div class="mx-4 py-4 md:px-16" >
-        <h1 class="my-4 text-4xl font-bold">Top Mentors</h1>
+        <h1 class="my-4 text-2xl md:text-4xl font-bold">Find Mentors</h1>
         <div class="grid grid-cols-1 md:grid-cols-4  gap-4 ">
             <!-- Filter Col -->
             <div class=" hidden md:block">
@@ -29,9 +30,14 @@
                     </div>
                     <div class="flex flex-col my-2" v-show="show_expertise">
                         <template v-for="expertise in expertises" :key="expertise.id">
-                        <Link  
-                            class="text-indigo-900 font-light active:font-bold mt-2"> {{expertise.name}}
-                        </Link>
+                        <div class="flex flex-row justify-between items-center"> 
+                            <!-- :href="route('mentor.search.index')+'?q='+query+'&f='+expertise.id" -->
+                            <Link  @click="filter(expertise.id)"
+                                class="text-indigo-900 p-1 font-light active:font-bold mt-2"
+                                :class="{'animate-pulse bg-indigo-100 font-bold':expertise.id==form.f}"> {{expertise.name}}
+                            </Link> 
+                            <span v-if="expertise.id==form.f" class="cursor-pointer font-bold hover:text-red-500" @click="removeFilter"> &times;</span>
+                        </div>
                         </template>
                     </div>
                 </div>
@@ -42,9 +48,9 @@
                 <!-- Search form -->
                 <div class="my-8 ">
                     <div class="flex mx-4 items-stretch focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
-                        <input type="search" v-model="q" class="rounded-l-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base ">
-                        <Link :href="route('mentor.search.index')+'?q='+q" replace class="bg-indigo-600 hover:bg-indigo-900 rounded-r-lg align-middle px-2">
-                            
+                        <input @keyup.enter="search" type="search" v-model="form.q" placeholder="Find mentor by name or expertise" class="rounded-l-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base ">
+                        <Link  @click="search"  class="bg-indigo-600 hover:bg-indigo-900 rounded-r-lg align-middle px-2">
+                            <!-- :href="route('mentor.search.index')+'?q='+query+'&f='+expertise" -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-6   fill-current text-gray-100 " viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                             </svg>
@@ -52,6 +58,7 @@
                     </div>
                 </div>
                 <hr class="">
+                
                 <!-- The individual search results -->
                 <div v-for="mentor in mentors.data" :key="mentor.id" class="divide-y">
                 <Link :href="route('mentor.profile',{'mentor':mentor.id})">
@@ -113,25 +120,52 @@
 
         
     </div>
+    <Footer />
 </template>
 
 <script>
      import { Head, Link } from '@inertiajs/inertia-vue3';
      import axios from 'axios';
+     import NavBar from '@/Pages/Partials/NavBar.vue';
+     import Footer from '@/Pages/Partials/Footer.vue';
 export default {
     components: {
         Head,
-        Link
+        Link,
+        NavBar,
+        Footer
     },
-    props:['mentors','q','expertises','connected_mentors','requested_mentors'],
+    props:['mentors','q','expertises','connected_mentors','requested_mentors','f'],
     data(){
         return {
+            form: this.$inertia.form({
+                    
+                    q: this.q,
+                    f: this.f,
+                    
+                }),
+            
             show_expertise:true,
             filtered_expertises:[],
             loader:{state:false,mentorId:null},
         }
     },
     methods: {
+        filter(f=''){
+            this.form.f = f;
+            this.form.get(route('mentor.search.index'));
+            //this.$inertia.visit(route('mentor.search.index')+'?q='+this.q);
+        },
+        removeFilter(){
+            this.form.f = null;
+            this.form.get(route('mentor.search.index'));
+            //this.$inertia.visit(route('mentor.search.index')+'?q='+this.q);
+        },
+        search(){
+            this.form.get(route('mentor.search.index'))
+            // console.log(this.query);
+            //     this.$inertia.visit(route('mentor.search.index')+'?q='+this.q+'&f='+this.f);
+        },
         connected(mentorId){
             for (const mentor of this.$page.props.connected_mentors) {
                 if(mentor.mentor_id ==mentorId){

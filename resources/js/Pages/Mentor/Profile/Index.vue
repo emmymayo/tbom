@@ -1,4 +1,5 @@
 <template>
+    <nav-bar />
     <Head :title="mentor.user.name - Profile"> </Head>
 
     <div class=" py-4 bg-gray-100 min-h-screen ">
@@ -20,9 +21,14 @@
                 <span v-if="!is_requested && !is_connected " class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-500 hover:from-yellow-700 hover:via-yellow-600 hover:to-yellow-500 py-2 px-4 cursor-pointer text-gray-100 rounded-lg font-xs font-bold shadow-sm ">
                     <span :class="{'animate-pulse' : loader.state }" @click="connect(mentor.id)">Connect </span> 
                 </span>
+                <span v-if="is_connected " class="mx-4 bg-gradient-to-r from-green-500 to-green-400 hover:bg-green-300 hover:opacity-75 py-2 px-4 cursor-pointer text-gray-100 rounded-lg font-xs font-bold shadow-sm ">
+                    <Link :href="route('mentor-assessment.edit',{mentor:mentor.id})" ><span  @click="assess(connected_mentor.mentor_id)">Assess</span> </Link>
+                </span> 
                 <span v-if="is_connected " class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-indigo-500 hover:from-yellow-700 hover:via-yellow-600 hover:to-yellow-500 py-2 px-4 cursor-pointer text-gray-100 rounded-lg font-xs font-bold shadow-sm ">
                     <span :class="{'animate-pulse' : loader.state }" @click="disconnect(mentor.id)">Disconnect </span> 
                 </span>
+                
+                
             </div>
 
         </div>
@@ -55,16 +61,21 @@
             </div>
         </div>
     </div>
+    <Footer />
 </template>
 
 <script>
      import { Head, Link } from '@inertiajs/inertia-vue3';
      import AssessMentor from '@/Pages/Mentor/Profile/Partials/AssessMentor.vue';
      import axios from 'axios';
+     import NavBar from '@/Pages/Partials/NavBar.vue';
+    import Footer from '@/Pages/Partials/Footer.vue';
 export default {
         components: {
         Head,
         Link,
+        NavBar,
+        Footer,
         AssessMentor
     },
     props:['mentor','is_connected', 'is_requested', 'mentee_count'],
@@ -79,7 +90,7 @@ export default {
             this.loading();
              axios.patch(route('mentor.connect.request'),{action:'cancel','mentor_id':mentorId})
                 .then((response) => {
-                        this.$inertia.reload({ only: ['is_requested','is_connected'] });
+                        this.$inertia.reload();
                         this.loader.state = false;
                     })
                 .catch((error) => {
@@ -91,7 +102,7 @@ export default {
             this.loading();
              axios.patch(route('mentor.connect.request'),{action:'request','mentor_id':mentorId})
                 .then((response) => {
-                        this.$inertia.reload({ only: ['is_requested','is_connected'] });
+                        this.$inertia.reload();
                         this.stopLoading();
                     })
                 .catch((error) => {
@@ -106,7 +117,7 @@ export default {
             this.loading(mentorId);
              axios.patch(route('mentor.connect.request'),{action:'disconnect','mentor_id':mentorId})
                 .then((response) => {
-                        this.$inertia.reload({ only: ['connected_mentors','requested_mentors'] });
+                        this.$inertia.reload();
                         this.stopLoading();
                     })
                 .catch((error) => {

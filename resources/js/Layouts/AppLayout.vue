@@ -12,7 +12,7 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link href="/">
                                     <jet-application-mark class="block h-9 w-auto" />
                                 </Link>
                             </div>
@@ -30,6 +30,9 @@
                                 </jet-nav-link>
                                 <jet-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('mentor.expertise')" :active="route().current('mentor.expertise')">
                                     Expertise
+                                </jet-nav-link>
+                                <jet-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('my-mentee.index')" :active="route().current('my-mentee.index')">
+                                    Mentees  <sup class="rounded-full px-2 bg-red-100 text-red-500" v-show="pendingMenteeRequests > 0"> {{pendingMenteeRequests}} </sup>
                                 </jet-nav-link>
                             </div>
                         </div>
@@ -163,6 +166,9 @@
                         <jet-responsive-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('mentor.expertise')" :active="route().current('mentor.expertise')">
                             Expertise
                         </jet-responsive-nav-link>
+                        <jet-responsive-nav-link v-if="$page.props.user.role.name=='mentor'" :href="route('my-mentee.index')" :active="route().current('my-mentee.index')">
+                            Mentees <sup class="rounded-full px-2 bg-red-100 text-red-500" v-show="pendingMenteeRequests > 0"> {{pendingMenteeRequests}} </sup>
+                        </jet-responsive-nav-link>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -262,6 +268,7 @@
     export default defineComponent({
         props: {
             title: String,
+            pendingMenteeRequests: Number
         },
 
         components: {
