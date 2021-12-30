@@ -11,6 +11,7 @@ use App\Http\Controllers\MentorProfileController;
 use App\Http\Controllers\MentorSearchController;
 use App\Http\Controllers\MyMenteeController;
 use App\Http\Controllers\MyMentorController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UpdateMenteeProfileInformationController;
 use App\Http\Controllers\UpdateMentorProfileInformationController;
 use App\Http\Controllers\UserDocumentDownloadController;
@@ -21,6 +22,7 @@ use App\Models\Nationality;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Wink\WinkPost;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,13 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+        $latest_posts = WinkPost::with('tags','author')
+                        ->live()
+                        ->orderBy('publish_date','DESC')
+                        ->skip(0)
+                        ->take(3)
+                        ->get();
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -41,10 +50,20 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'mentee_count' => Mentee::all()->count(),
         'mentor_count' => Mentor::all()->count(),
+        'posts' => $latest_posts
         
     ]);
 });
 
+Route::get('/about-author', function(){
+     return Inertia::render('About/Author');
+})->name('about-author');
+
+
+
+Route::get('/about-site', function(){
+        return Inertia::render('About/Site');
+})->name('about-site');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', DashboardController::class)->name('dashboard');
 
 
@@ -80,8 +99,7 @@ Route::middleware(['auth:sanctum', 'verified','can:mentor-only'])->put('/mentors
 Route::middleware(['auth:sanctum', 'verified','can:mentor-only'])->delete('/mentors/expertises/{mentor_expertise}', [MentorExpertiseController::class,'destroy'])->name('destroy.mentor.expertise');
 
 
-Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/search/mentors', [MentorSearchController::class,'index'])
+Route::get('/search/mentors', [MentorSearchController::class,'index'])
         ->name('mentor.search.index');
 
 Route::middleware(['auth:sanctum', 'verified'])
@@ -108,3 +126,9 @@ Route::middleware(['auth:sanctum','verified'])->get('/mentors/{mentor}/assessmen
 Route::middleware(['auth:sanctum','verified'])->put('/mentors/{mentor}/assessments',[MentorAssessmentController::class,'update'])
                 ->name('mentor-assessment.update');
 
+
+// Posts routes
+
+Route::get('/publications',[PostController::class,'index'])->name('publications.index');
+Route::get('/publications/{slug}',[PostController::class,'show'])->name('publications.show');
+Route::get('/publications/tags/{slug}',[PostController::class,'tagIndex'])->name('publications.tags.index');

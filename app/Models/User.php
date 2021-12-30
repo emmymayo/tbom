@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,6 +70,7 @@ class User extends Authenticatable
 
     protected $with = ['role','nationality:id,country','documents'];
 
+
     public function role(){
         return $this->belongsTo(Role::class);
     }
@@ -100,5 +102,11 @@ class User extends Authenticatable
         $this->status = static::STATUS_DISABLED;
         $this->save();
         return $this;
+    }
+
+    protected static function booted(){
+        static::addGlobalScope('disabled', function(Builder $query){
+            $query->where('status',static::STATUS_ACTIVE);
+        });
     }
 }

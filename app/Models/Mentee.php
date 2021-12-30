@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,4 +32,11 @@ class Mentee extends Model
     public function assessments(){
         return $this->hasMany(MentorAssessment::class);
     }
+
+    protected static function booted(){
+        static::addGlobalScope('disabled', function(Builder $query){
+            $query->whereIn('user_id',User::all()->pluck('id'));
+        });
+    }
 }
+

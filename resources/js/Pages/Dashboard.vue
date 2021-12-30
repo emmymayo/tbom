@@ -4,10 +4,10 @@
             <div class="flex items-center gap-x-6 my-2">
                 <img :src="$page.props.user.profile_photo_url" class="rounded-full h-32 w-32 object-cover " />
                 <div>
-                    <h3 class="font-semi-bold text-gray-500" > <span v-if="$page.props.mentor!=null" class="font-semi-bold text-gray-500"> {{$page.props.mentor.title}} </span> {{$page.props.user.name}} </h3>
-                    <h3 class="font-thin text-gray-500" v-if="$page.props.mentor!=null" >   {{$page.props.mentor.about_me}} </h3>
+                    <h3 class="font-semi-bold text-xl text-gray-500 capitalize" > <span v-if="$page.props.mentor!=null" class="font-semi-bold text-gray-500"> {{$page.props.mentor.title}} </span> {{$page.props.user.name}} </h3>
+                    <h3 class="font-bold text-xl text-gray-500" v-if="$page.props.mentor!=null" >   {{$page.props.mentor.about_me}} </h3>
                     <Link :href="route('profile.show')"><h3 class="font-thin text-gray-500 underline"  >   Edit Profile </h3></Link>
-                    <h3 class="font-thin text-gray-500" v-if="$page.props.mentor!=null && $page.props.assessment_index>0" > 
+                    <h3 class="font-bold text-gray-500" v-if="$page.props.mentor!=null && $page.props.assessment_index>0" > 
                         <!-- Rating Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-indigo-400 h-4 w-4 inline" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
                                 <desc>Created with Fabric.js 1.7.22</desc>
@@ -21,7 +21,8 @@
                                 </g>
                                 </g>
                             </svg>
-                          {{$page.props.assessment_index}} </h3>
+                          {{$page.props.assessment_index}} 
+                          </h3>
 
 
                 </div>

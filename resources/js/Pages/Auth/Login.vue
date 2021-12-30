@@ -39,6 +39,16 @@
                     Log in
                 </jet-button>
             </div>
+            <div class="flex items-center justify-between mt-4">
+                <Link  :href="route('register')+'?role=mentor'" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    Join as mentor
+                </Link>
+                <Link  :href="route('register')+'?role=mentee'" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    Join as mentee
+                </Link>
+
+               
+            </div>
         </form>
     </jet-authentication-card>
 </template>

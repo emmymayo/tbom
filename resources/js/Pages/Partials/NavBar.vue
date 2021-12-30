@@ -106,16 +106,21 @@
                 </div>
               </div>
               <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                <a
-                  href="#"
+                <Link
+                  :href="route('about-author')"
                   class="font-medium text-gray-500 hover:text-gray-900"
-                  >Features</a
+                  >About Author</Link
                 >
 
-                <a
-                  href="#"
+                <Link
+                  :href="route('about-site')"
                   class="font-medium text-gray-500 hover:text-gray-900"
-                  >About Us</a
+                  >About TBOM</Link
+                >
+                <Link
+                  :href="route('publications.index')"
+                  class="font-medium text-gray-500 hover:text-gray-900"
+                  >Publications</Link
                 >
                 <Link
                   :href="route('login')"
@@ -238,7 +243,19 @@
                     </form>
                   </template>
                 </jet-dropdown>
+                
               </div>
+              <div v-if="$page.props.user==null || $page.props.user.role.name=='mentee'"
+                 class="ml-6  w-1/3 hidden xl:flex   items-stretch focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent">
+                        <input @keyup.enter="search" type="search" v-model="q" placeholder="Find mentor by name or expertise" class="rounded-l-lg flex-1 appearance-none border border-gray-300 w-full py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base ">
+                        <Link  @click="search"  class="bg-indigo-600 hover:bg-indigo-900 rounded-r-lg align-middle px-2">
+                            <!-- :href="route('mentor.search.index')+'?q='+query+'&f='+expertise" -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-6   fill-current text-gray-100 " viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </Link>
+                        
+                </div>
             </nav>
           </div>
         </div>
@@ -247,12 +264,15 @@
     </div>
      <!-- Mobile Menu -->
     <div class="md:hidden shadow-md z-30 absolute inset-0  mt-20 transition duration-500 ease-in-out" v-show="showMobileMenu">
-        <div class="bg-white flex flex-col px-6 gap-y-4 ">
+        <div class="bg-white flex flex-col px-6 gap-y-4 pb-4 ">
             <Link :href="route('login')" v-if="$page.props.user==null">Log In </Link>
             <Link :href="route('register')+'?role=mentor'" v-if="$page.props.user==null">Join As Mentor </Link>
             <Link :href="route('register')+'?role=mentee'" v-if="$page.props.user==null">Join As Mentee </Link>
             <Link :href="route('profile.show')" v-if="$page.props.user!=null">Profile </Link>
             <Link :href="route('dashboard')" v-if="$page.props.user!=null">Dashboard </Link>
+            <Link :href="route('about-author')" >About Author </Link>
+            <Link :href="route('about-site')" >About TBOM </Link>
+            <Link :href="route('publications.index')" >Publications </Link>
             <Link :href="route('logout')" class="text-left" v-if="$page.props.user!=null" method="post" as="button" type="button">Log Out</Link>
             
         </div>

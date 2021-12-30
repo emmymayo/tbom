@@ -11,10 +11,10 @@
         <nav class="mt-4">
           <ul class="space-y-2">
             <li>
-              <a href="#" class="font-normal text-base hover:text-gray-400">About</a>
+              <a href="/about-author" class="font-normal text-base hover:text-gray-400">About Author</a>
             </li>
             <li>
-              <a href="#" class="font-normal text-base hover:text-gray-400">Contact Us</a>
+              <a href="/about-site" class="font-normal text-base hover:text-gray-400">About TBOM</a>
             </li>
             
           </ul>
@@ -30,9 +30,7 @@
             <li class="mb-2">
               <a href="#" class="font-normal text-base hover:text-gray-400">Technology</a>
             </li>
-            <li class="mb-2">
-              <a href="#" class="font-normal text-base hover:text-gray-400">Psychology</a>
-            </li>
+            
            
           </ul>
         </nav>

@@ -33,7 +33,8 @@ class MentorProfileController extends Controller
             'mentor' => $mentor,
             'is_connected' => $is_mentee_connected,
             'is_requested' => $is_mentee_requested,
-            'mentee_count' => $mentee_count
+            'mentee_count' => $mentee_count,
+            'assessment_index' => $mentor->assessmentIndex()
         ]);
     }
 }

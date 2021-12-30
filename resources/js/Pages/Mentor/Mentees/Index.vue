@@ -32,7 +32,7 @@
                                                 <img :src="connected_mentee.mentee.user.profile_photo_url" class="h-16 w-16 rounded-full object-cover" />
                                                 <div class="">
                                                    
-                                                    <h3 class="text-indigo-600 hover:underline"> {{connected_mentee.mentee.user.name}} </h3>     
+                                                    <h3 class="capitalize text-indigo-600 hover:underline"> {{connected_mentee.mentee.user.name}} </h3>     
                                                     
                                                 </div>
                                             </div>
@@ -126,7 +126,7 @@ export default defineComponent({
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
+                    
                 })
         },
         accept(menteeId){
@@ -138,7 +138,7 @@ export default defineComponent({
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
+                    
                 })
         },
         disconnect(menteeId){
@@ -153,7 +153,7 @@ export default defineComponent({
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
+                   
                 })
         },
         loading(menteeId, action=''){

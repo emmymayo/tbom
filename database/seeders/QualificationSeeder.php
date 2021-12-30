@@ -14,7 +14,7 @@ class QualificationSeeder extends Seeder
      */
     public function run()
     {
-        $qualifications = ['Undergraduate', 'Graduate', 'Post Graduate', 'Doctorate'];
+        $qualifications = ['Undergraduate', 'Graduate', 'Post Graduate', 'Doctorate', 'Post Doctorate'];
         foreach ($qualifications as $qualification) {
             Qualification::factory()->create(['name' => $qualification]);
         }

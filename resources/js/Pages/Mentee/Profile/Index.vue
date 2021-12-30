@@ -9,8 +9,8 @@
             <div class="flex items-center gap-2"> 
                 <img :src="mentee.user.profile_photo_url" class="rounded-full h-36 w-36 object-cover mt-4 " />
                 <div class="flex flex-col">
-                    <h3 class="text-center  font-semibold text-xl  text-indigo-400"> {{mentee.user.name}} </h3>
-                    <p v-if="mentor_count>0" class="text-center font-thin mt-2 text-gray-400"> {{mentor_count}} {{mentor_count==1 ? 'mentor' : 'mentors'}}</p>
+                    <h3 class="capitalize text-center  font-bold text-xl  text-indigo-400"> {{mentee.user.name}} </h3>
+                    <p v-if="mentor_count>0" class="text-center font-bold mt-2 text-gray-400"> {{mentor_count}} {{mentor_count==1 ? 'mentor' : 'mentors'}}</p>
                 </div>
             </div>
             <!-- Connect Buttons -->
@@ -91,7 +91,6 @@ export default {
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
                 })
         },
         accept(menteeId){
@@ -103,7 +102,6 @@ export default {
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
                 })
         },
         disconnect(menteeId){
@@ -118,7 +116,6 @@ export default {
                     })
                 .catch((error) => {
                     this.stopLoading();
-                    alert('Something went wrong. Try again.');
                 })
         },
         loading(action=''){

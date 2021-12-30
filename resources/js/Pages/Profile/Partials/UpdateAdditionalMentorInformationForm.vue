@@ -111,9 +111,6 @@
 
             }
         },
-        setup(props){
-            console.log(props);
-        },
         methods: {
             updateMentorInformation() {
                 

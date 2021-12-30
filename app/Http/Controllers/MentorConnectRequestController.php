@@ -7,6 +7,7 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use App\Models\MentorMentee;
 use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
 
 class MentorConnectRequestController extends Controller
 {
@@ -15,6 +16,7 @@ class MentorConnectRequestController extends Controller
     {
          //Ensure its a Mentee
          Gate::authorize('mentee-only');
+         
 
          $data = request()->validate([
             'mentor_id' => ['required', 'exists:mentors,id'],

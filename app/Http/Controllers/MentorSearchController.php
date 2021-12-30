@@ -16,7 +16,7 @@ use Illuminate\Validation\Rule;
 class MentorSearchController extends Controller
 {
     public function index(Request $request){
-        Gate::authorize('mentee-only');
+        //Gate::authorize('mentee-only');
         //Frontend may return null for empty strings--- convert back to empty string
         
         $data = $request->validate([
@@ -47,8 +47,13 @@ class MentorSearchController extends Controller
                                                  ->pluck('id'))
                                         ->pluck('mentor_id'));
                     })
+                    ->orderBy('assessment_index','DESC')
                     ->paginate();
         
+                //    foreach ($mentors->data as $mentor) {
+                //        $mentor->index = $mentor->assessmentIndex();
+                //    }
+                  
         $my_connected_mentors = MentorService::getUserConnectedMentors();
         
         $my_requested_mentors = MentorService::getUserRequestedMentors();

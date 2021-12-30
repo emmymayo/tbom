@@ -64,6 +64,8 @@ class MentorAssessmentController extends Controller
                 'mentor_id' => $mentor->id, 
             ]
         );
+        $mentor->assessment_index = $mentor->assessmentIndex();
+        $mentor->save();
 
         return back()->banner('Assessment Updated Successfully');
     }

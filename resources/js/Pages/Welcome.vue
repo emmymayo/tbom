@@ -6,7 +6,7 @@
     <home-header class="" />
     <count-widget />
      <!-- <features-section /> -->
-    <rest-template />
+    <rest-template :posts="posts" />
     <Faq />
     <Footer />
     
@@ -42,6 +42,7 @@
             canRegister: Boolean,
             laravelVersion: String,
             phpVersion: String,
+            posts: Array
         }
     })
 </script>

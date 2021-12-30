@@ -18,7 +18,7 @@
                    <template v-else> 
                        <!-- Show this when no Experience -->
                        <div class="container mx-auto px-4 py-12"> 
-                           <h3 class="text-gray-600"> 
+                           <h3 class="text-gray-600 text-xl"> 
                                No Academic Experience Added Yet.    
                                <Link :href="route('create.mentee.experience')">
                                     <span class=" text-blue-700 hover:text-blue-400">  ADD </span>
