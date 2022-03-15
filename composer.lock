@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d8ac05a0185857f3c862aa5bdd72d07",
+    "content-hash": "1ae72c502af1cf5e8e5726f43d05af5b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5795,16 +5795,16 @@
         },
         {
             "name": "themsaid/wink",
-            "version": "v1.2.1",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/themsaid/wink.git",
-                "reference": "d729517cea572580f188708e568556577161b17a"
+                "reference": "df0b131a01691204bc82ea197546040b521ae490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/themsaid/wink/zipball/d729517cea572580f188708e568556577161b17a",
-                "reference": "d729517cea572580f188708e568556577161b17a",
+                "url": "https://api.github.com/repos/themsaid/wink/zipball/df0b131a01691204bc82ea197546040b521ae490",
+                "reference": "df0b131a01691204bc82ea197546040b521ae490",
                 "shasum": ""
             },
             "require": {
@@ -5845,9 +5845,9 @@
             ],
             "support": {
                 "issues": "https://github.com/themsaid/wink/issues",
-                "source": "https://github.com/themsaid/wink/tree/v1.2.1"
+                "source": "https://github.com/themsaid/wink/tree/v1.3.1"
             },
-            "time": "2021-04-26T10:59:27+00:00"
+            "time": "2022-01-04T15:55:40+00:00"
         },
         {
             "name": "tightenco/ziggy",

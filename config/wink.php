@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'path' => env('WINK_PATH', 'admin/posts'),
+    'path' => env('WINK_PATH', 'admin/publications'),
 
     /*
     |--------------------------------------------------------------------------
